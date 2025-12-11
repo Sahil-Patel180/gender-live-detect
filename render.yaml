@@ -6,13 +6,12 @@ services:
     env: python
     region: oregon
     plan: free
-    buildCommand: pip install -r api/requirements.txt
+    rootDir: ./
+    buildCommand: cd api && pip install -r requirements.txt
     startCommand: gunicorn -w 4 -b 0.0.0.0:$PORT api.index:app
     envVars:
       - key: PYTHON_VERSION
-        value: 3.12.0
-      - key: PORT
-        value: 10000
+        value: 3.12.7
     healthCheckPath: /api/stats
 
   # Frontend Static Site
