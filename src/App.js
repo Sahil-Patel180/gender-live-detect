@@ -215,7 +215,7 @@ function App() {
             </div>
           )}
 
-          {result && !feedbackSubmitted && (
+          {result && (
             <div className="result-card">
               <div className="result-header">
                 <h2>Analysis Result</h2>
@@ -235,38 +235,14 @@ function App() {
                   <span className="confidence-value">{result.confidence}%</span>
                 </div>
               </div>
-              <div className="feedback-section">
-                <p className="feedback-question">Is this prediction correct?</p>
-                <div className="feedback-buttons">
-                  <button 
-                    className="feedback-btn correct"
-                    onClick={() => handleFeedback(result.gender)}
-                    disabled={loading}
-                  >
-                    ✓ Yes, Correct
-                  </button>
-                  <button 
-                    className="feedback-btn incorrect"
-                    onClick={() => handleFeedback(result.gender === 'Male' ? 'Female' : 'Male')}
-                    disabled={loading}
-                  >
-                    ✗ No, It's {result.gender === 'Male' ? 'Female' : 'Male'}
-                  </button>
-                </div>
-                <p className="feedback-note">🔒 Private & secure - Model learns instantly without storing your image</p>
+              <div className="privacy-notice">
+                🛡️ Your Privacy Matters:<br />
+                No images are stored. The model forgets the image immediately.
               </div>
             </div>
           )}
 
-          {feedbackSubmitted && (
-            <div className="feedback-success">
-              <div className="success-icon">✓</div>
-              <h3>Model Updated!</h3>
-              <p>AI learned from your feedback instantly. Your image was processed but not saved - complete privacy guaranteed.</p>
-            </div>
-          )}
-
-          {stats && (
+          {stats && false && (
             <div className="stats-card">
               <div className="privacy-badge">
                 🔒 Privacy-Safe Learning
