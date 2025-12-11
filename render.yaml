@@ -20,7 +20,6 @@ services:
     name: gender-classifier-frontend
     runtime: static
     env: static
-    plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: ./build
     routes:
