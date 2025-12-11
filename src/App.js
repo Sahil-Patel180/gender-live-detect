@@ -2,6 +2,9 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 
+// Use environment variable or fallback to relative path for local dev
+const API_URL = process.env.REACT_APP_API_URL || '';
+
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -56,7 +59,7 @@ function App() {
     formData.append('image', selectedImage);
 
     try {
-      const response = await axios.post('/api/predict', formData, {
+      const response = await axios.post(`${API_URL}/api/predict`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -98,7 +101,7 @@ function App() {
     formData.append('confidence', result.confidence);
 
     try {
-      const response = await axios.post('/api/feedback', formData);
+      const response = await axios.post(`${API_URL}/api/feedback`, formData);
       
       if (response.data.success) {
         setFeedbackSubmitted(true);
@@ -116,7 +119,7 @@ function App() {
 
   const fetchStats = async () => {
     try {
-      const response = await axios.get('/api/stats');
+      const response = await axios.get(`${API_URL}/api/stats`);
       setStats(response.data);
     } catch (err) {
       console.error('Failed to fetch stats');
@@ -132,7 +135,7 @@ function App() {
     setError(null);
 
     try {
-      const response = await axios.post('/api/save-model');
+      const response = await axios.post(`${API_URL}/api/save-model`);
       
       if (response.data.success) {
         alert(`Model saved successfully!\n\nBackup created: ${response.data.backup_created}`);
