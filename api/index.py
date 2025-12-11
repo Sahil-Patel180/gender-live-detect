@@ -10,7 +10,19 @@ from datetime import datetime
 import shutil
 
 app = Flask(__name__)
-CORS(app)
+# Allow CORS from frontend domain
+CORS(app, resources={
+    r"/api/*": {
+        "origins": [
+            "https://gender-classifier-frontend.onrender.com",
+            "http://localhost:3000",
+            "http://127.0.0.1:3000"
+        ],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"],
+        "supports_credentials": True
+    }
+})
 
 # Load the trained model
 MODEL_PATH = os.path.join(os.path.dirname(__file__), '..', 'gender_classification_model.h5')
